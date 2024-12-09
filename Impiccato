@@ -1,0 +1,56 @@
+#include <iostream>
+#include <string>
+using namespace std ;
+int main()
+{
+  string parola="";
+  string trattini ="";
+  string parolaNascosta="";
+  char lettera;
+  int tentativo=0;
+  do 
+  {
+    cout<<"Immetti la parola segreta: ";
+    cin>>parola;
+  }while (parola.size()<3);
+
+    for(int i=0;i<parola.size();i++)
+      {
+        trattini=trattini+"_";
+      }
+    cout<<trattini <<endl;
+
+ 
+     do
+     {
+       cout<<"Inserisci una lettera: "<<endl;
+       cin>> lettera;
+       trattini="";
+       if(tentativo>=10)
+          {
+            cout<<"Hai perso"<<endl;
+          }
+        else
+        {  tentativo=tentativo+1; 
+         for(int i=0;i<parola.size();i++)
+         {
+           if(parola[i]==lettera)
+           {
+             parolaNascosta =trattini + lettera;
+             
+           }
+            else
+          {
+            trattini=trattini+ "_";
+          
+          }
+         }
+       }
+        cout<<trattini <<endl;
+       
+      }while(parolaNascosta!=parola);
+      cout<<"Hai vinto!"<<endl;
+  
+
+return 0;
+}
