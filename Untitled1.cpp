@@ -1,16 +1,21 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<ctime>
+#include<cstdlib>
 using namespace std;
 int main()
 {
-	string frase=" ";
-	cout<<"inserisci una frase: "<<endl;
-	getline(cin,frase);
-	int l = frase.size();
-	cout<< l<<endl <<"Carattere iniziale: "<<frase[0]<<endl <<"Carattere finale: "<<frase[l-1] <<endl;
-	for(int i=l;i>=0;i--)
+	srand(time(0));
+	int inculata=0;
+	for(int i=0;i<6;i++)
 	{
-		cout<<frase[i-1];
+		int num =rand()%6+1;
+		cout<<num<<endl;
+		if(num==1)
+			{
+				inculata++;
+			}
 	}
+	cout<<"Sei stato inculato "<<inculata<<" volte";
+	
 }
 
