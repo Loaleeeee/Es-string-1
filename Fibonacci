@@ -1,0 +1,31 @@
+#include <iostream> 
+using namespace std ;
+int main()
+{
+  int n=1;
+  int F=0;
+  int c;
+  cout<<"Quanti valori vuoi ricevere?: ";
+  cin>>c;
+  if(!(c>=0&&c<=20))
+	{
+	  	do{
+	  	cout<<"Input non valido"<<endl<<"Inseriscine uno diverso: ";
+	    cin>>c;
+	    }while(!(c>=0&&c<=20));
+	}
+ 
+  if(c==0)
+    {return (0);}
+  else
+    {
+        for(int i=2; i<=c-1; i++)
+        {	
+        	F=F+i;
+			n=F;	
+        	cout << F << endl;
+ 
+			
+        }
+    }
+}
