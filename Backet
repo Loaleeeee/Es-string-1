@@ -1,0 +1,104 @@
+#include<iostream>
+#include<ctime>
+#include<cstdlib>
+using namespace std;
+#define DIM 5 //max righe e colonne
+
+void generaMatriceCasuale(int punteggi[DIM][DIM]){
+  for(int r=0;r<DIM;r++){
+    for(int c=0;c<DIM;c++){
+      punteggi[r][c]=rand()%25+5;
+    }
+  }
+}
+
+void stampaMatrice(int punteggi[DIM][DIM]){
+  for(int r=0;r<DIM;r++){
+    cout << "GIOCATORE" << r+1 << "  ";
+    for(int c=0;c<DIM;c++){
+      cout<<punteggi[r][c]<<"\t";
+    }
+    cout<<endl;
+  }
+}
+
+int calcolaMaxPuntiPartita(int punteggi [DIM][DIM])
+{
+  int somma=0;
+  for (int i=0;i<DIM;i++)
+  {
+    somma+=punteggi[i][0];
+  }
+  return somma;
+}
+
+int calcolaMaxPuntiGiocatore(int punteggi [DIM][DIM])
+{
+  int somma=0;
+  for (int i=0;i<DIM;i++)
+  {
+    somma+=punteggi[0][i];
+  }
+  return somma;
+}
+
+int calcolaPuntiPartita(int j, int punteggi [DIM][DIM])
+{
+  int puntiPartita = 0;
+  for(int i=0;i<DIM;i++)
+  {
+    puntiPartita+=punteggi[i][j];
+  }
+  return puntiPartita;
+}
+
+int calcolaPuntiGiocatore(int i, int punteggi [DIM][DIM])
+{
+  int puntiGiocatore = 0;
+  for(int j=0;j<DIM;j++)
+  {
+    puntiGiocatore += punteggi[i][j];
+  }
+  return puntiGiocatore;
+}
+
+int main()
+{
+  srand((unsigned)time(NULL));
+  int punteggi[DIM][DIM];
+  generaMatriceCasuale(punteggi);
+  stampaMatrice(punteggi);
+
+  int partitaMax=0;
+  int maxPuntiPartita = calcolaMaxPuntiPartita(punteggi);
+
+  for(int j=0;j<DIM;j++)
+  {
+    int puntiPartita = calcolaPuntiPartita(j,punteggi);
+    if(puntiPartita>maxPuntiPartita)
+    {
+      maxPuntiPartita=puntiPartita;
+      partitaMax=j;
+    }     
+  }
+
+  int giocatoreMax=0;
+  int maxPuntiGiocatore = calcolaMaxPuntiGiocatore(punteggi);
+
+  for(int i=0;i<DIM;i++)
+  {
+    int puntiGiocatore= calcolaPuntiGiocatore(i,punteggi);
+    if(puntiGiocatore>maxPuntiGiocatore)
+    {
+      maxPuntiGiocatore=puntiGiocatore;
+      giocatoreMax=i;
+    }
+   }
+
+    cout<<"Il giocatore che ha fatto il maggior numero di punti in 5 partite e' GIOCATORE"<<giocatoreMax+1<<endl;   
+    cout<<"La partita in cui sono stati fatti il maggior numero di punti e' PARTITA"<<partitaMax+1<<endl;
+    cout<<"il giocatore che ha fatto piu' punti in totale, nella partita in cui ci sono stati piu' punti ne ha fatti "<<punteggi[giocatoreMax][partitaMax];
+
+    return 0;
+
+}
