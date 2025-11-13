@@ -1,0 +1,163 @@
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+#define M 5
+#define N 6
+using namespace std;
+void riempiMat(int mat[M][N]) 
+{
+    for (int i=0; i<M; i++) 
+    {
+        for (int j=0; j<N; j++) 
+        {
+            mat[i][j]=0;
+        }
+    }
+}
+void stampaMat(int matrice[M][N])
+{
+    for (int i=0; i<M; i++) 
+    {
+        for (int j=0; j<N; j++) 
+        {
+            cout<<matrice[i][j]<<"\t";
+        }
+        cout<<endl;
+    }
+}
+void posizionaNave(int mat[M][N], int lunghezza) 
+{
+    int m=0;
+    int n=0;
+    int orientamento=0;
+    int valido=0;
+    while(valido==0) 
+    {
+        m=rand()%M;
+        n=rand()%N;
+        orientamento=rand()%2;
+        valido=1;
+        if(orientamento==0) 
+        {
+            for (int j=n; j<n+lunghezza; j++)
+            {
+                if(mat[m][j]!=0) 
+                    valido=0; 
+            }
+            if (n+lunghezza>N) 
+                valido=0;
+        } 
+        else
+        {
+            for (int i=m; i<m+lunghezza; i++) 
+            {
+                if (mat[i][n]!=0) 
+                    valido=0;
+            }
+            if (m+lunghezza>M) 
+                valido=0; 
+        }
+    }
+    
+    if (orientamento==1) 
+    {
+        for (int i=m; i<m+lunghezza; i++) 
+        {
+            mat[i][n]=lunghezza;
+        }
+    } 
+    else
+    {
+        for (int j=n; j<n+lunghezza; j++) 
+        {
+            mat[m][j]=lunghezza;
+        }
+    }
+}   
+int sparaColpo(int mat[M][N], int m, int n, int naviColpite[]) 
+{
+    if (mat[m][n]>0)
+    {
+        int colpita=mat[m][n];
+        if(mat[m][n]==1)
+        {
+            mat[m][n]=-1;
+            return colpita; 
+        }
+        else if(mat[m][n]==2)
+        {
+            mat[m][n]=-1;
+            naviColpite[0]++;
+            return colpita; 
+        }
+        if(mat[m][n]==3)
+        {
+            mat[m][n]=-1;
+            naviColpite[1]++;
+            return colpita; 
+        }
+    }
+    return 0;
+}
+
+int main() 
+{
+    srand(time(NULL));
+    int mare[M][N];
+    int naviColpite[2];
+    for (int i=0; i<2; i++) 
+        naviColpite[i]=0;
+    int l1=1;
+    int l2=2;
+    int l3=3;
+    riempiMat(mare);
+    for (int i=0; i<3; i++) 
+    {
+        posizionaNave(mare, l1);
+    }
+    for (int i=0; i<2; i++) 
+    {
+        posizionaNave(mare, l2);
+    }
+    posizionaNave(mare, l3);
+    stampaMat(mare);
+    int affondate=0;
+    while (affondate<=6) 
+    {
+        int m;
+        int n;
+        cout<<"Inserisci le coordinate del colpo (x y): "<<endl; // a partire da 0
+        cin>>n;
+        cin>>m;
+        if (m<0 || m>= M || n<0 || n>=N)
+            cout<<"Fuori dal mare" << endl;
+        else 
+        {
+            int risultato=sparaColpo(mare, m, n, naviColpite);
+            if (risultato>0) 
+            {
+                cout<<"Colpita una nave di lunghezza "<<risultato<<endl;
+                if(risultato==l1)
+                {
+                    cout<<"E' affondata"<<endl;
+                    affondate++;
+                }
+                if(risultato==l2 && naviColpite[0]==2 || naviColpite[0]==4)
+                {
+                    affondate++;
+                    cout<<"E' affondata"<<endl;
+                }
+                if(risultato==l3 && naviColpite[1]==3)
+                {
+                    affondate++;
+                    cout<<"E' affondata"<<endl;
+                }
+            } 
+            else 
+                cout<<"Mare"<<endl;
+        }
+        stampaMat(mare);
+    }
+    cout<<"Hai vinto!"<<endl;
+    return 0;
+}
