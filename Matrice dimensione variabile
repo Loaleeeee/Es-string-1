@@ -1,0 +1,40 @@
+#include <ctime>
+#define M 20
+#define N 20
+#define MAX 10
+using namespace std;
+
+void riempimatrice(int r, int c, int matrice[M][N])
+{
+	for(int i=0; i<r; i++)
+	{
+		for(int j=0; j<c; j++)
+		{
+			matrice[i][j]=rand()%MAX;
+		}
+	}
+}
+
+void stampa(int r, int c, int matrice[M][N])
+{
+	for(int i=0; i<r; i++)
+	{
+		for(int j=0; j<c; j++)
+		{
+			cout << matrice[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
+
+int main()
+{
+	srand(unsigned(time(NULL)));
+    int r = rand()%8+1;
+    int c = rand()%8+1;
+	int matrice[M][N];  // dichiarazione matrice
+    riempimatrice(r,c,matrice);
+    stampa(r,c,matrice);
+	return 0;
+}
