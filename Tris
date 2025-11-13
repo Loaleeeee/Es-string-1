@@ -1,0 +1,310 @@
+#include <iostream>
+#include <string>
+#define M 3
+#define N 3
+
+using namespace std;
+
+void GrigliaVuota (string mat[M][N]) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			mat[i][j] = "_";
+		}
+	}
+}
+
+void riempiInput (int mat[M][N]) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << "Inserisci pos " << i << "-" << j << ": ";
+			cin >> mat[i][j];
+		}
+	}
+}
+
+void StampaM(string m[M][N]) {
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << m[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void riempiInput1 (string mat[M][N]) {
+	int posM;
+	int posN;
+	int conta = 0;
+	
+	cout << "TURNO GIOCATORE 1:" << endl << endl;
+	
+	do {
+		if (conta > 0) {
+			cout << "PROBLEMA DI INSERIMENTO" << endl;
+		}
+		cout << "Inserisci pos righe: ";
+		cin >> posM;
+		cout << "Inserisci pos colonne: ";
+		cin >> posN;
+		conta++;
+	} while (posM < 1 || posM > 3 || posN < 1 || posN > 3 || mat[posM-1][posN-1] != "_");
+	
+	mat[posM-1][posN-1] = 'O';
+}
+
+void riempiInput2 (string mat[M][N]) {
+	int posM;
+	int posN;
+	int conta = 0;
+	
+	cout << "TURNO GIOCATORE 2:" << endl << endl;
+	
+	do {
+		if (conta > 0) {
+			cout << "PROBLEMA DI INSERIMENTO" << endl;
+		}
+		cout << "Inserisci pos righe: ";
+		cin >> posM;
+		cout << "Inserisci pos colonne: ";
+		cin >> posN;
+		conta++;
+	} while (posM < 1 || posM > 3 || posN < 1 || posN > 3 || mat[posM-1][posN-1] != "_");
+	
+	mat[posM-1][posN-1] = 'X';
+}
+
+int ControllaRighe1(string mat[M][N]) {
+    int conta = 0;
+    
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (mat[i][j] == "O") {
+			    conta++;
+			}
+		}
+		
+		if (conta == N) {
+		    i = M;
+		}
+		else {
+		    conta = 0;
+		}
+	}
+	
+	if (conta == 0) {
+	    return 0;
+	}
+	else {
+	    return 1;
+	}
+}
+
+int ControllaRighe2(string mat[M][N]) {
+    int conta = 0;
+    
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (mat[i][j] == "X") {
+			    conta++;
+			}
+		}
+		
+		if (conta == N) {
+		    i = M;
+		}
+		else {
+		    conta = 0;
+		}
+	}
+	
+	if (conta == 0) {
+	    return 0;
+	}
+	else {
+	    return 1;
+	}
+}
+
+int ControllaColonne1(string mat[M][N]) {
+    int conta = 0;
+    
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (mat[j][i] == "O") {
+			    conta++;
+			}
+		}
+		
+		if (conta == M) {
+		    i = N;
+		}
+		else {
+		    conta = 0;
+		}
+	}
+	
+	if (conta == 0) {
+	    return 0;
+	}
+	else {
+	    return 1;
+	}
+}
+
+int ControllaColonne2(string mat[M][N]) {
+    int conta = 0;
+    
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			if (mat[j][i] == "X") {
+			    conta++;
+			}
+		}
+		
+		if (conta == M) {
+		    i = N;
+		}
+		else {
+		    conta = 0;
+		}
+	}
+	
+	if (conta == 0) {
+	    return 0;
+	}
+	else {
+	    return 1;
+	}
+}
+
+int ControllaDiagonali1(string mat[M][N]) {
+    int conta1 = 0;
+    int conta2 = 0;
+    
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (i == j) {
+			    if (mat[i][j] == "O") {
+			        conta1++;
+			    }
+			}
+			if (j == N - i - 1) {
+			    if (mat[i][j] == "O") {
+			        conta2++;
+			    }
+			}
+		}
+	}
+	
+	if (conta1 == M || conta2 == M) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+int ControllaDiagonali2(string mat[M][N]) {
+    int conta1 = 0;
+    int conta2 = 0;
+    
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (i == j) {
+			    if (mat[i][j] == "X") {
+			        conta1++;
+			    }
+			}
+			if (j == N - i - 1) {
+			    if (mat[i][j] == "X") {
+			        conta2++;
+			    }
+			}
+		}
+	}
+	
+	if (conta1 == M || conta2 == M) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+void StampaRis(int r1, int c1, int d1, int r2, int c2, int d2) {
+    if (r1 != 0 || c1 != 0 || d1 != 0) {
+        cout << "VITTORIA DEL GIOCATORE 1!" << endl;
+    }
+    else {
+        if (r2 != 0 || c2 != 0 || d2 != 0) {
+            cout << "VITTORIA DEL GIOCATORE 2!" << endl;
+        }
+        else {
+            cout << "PARITA'!" << endl;
+        }
+    }
+}
+
+int ControllaGriglia(string mat[M][N]) {
+    int conta = 0;
+    
+    for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+		    if (mat[i][j] == "_") {
+		        conta++;
+		    }
+		}
+	}
+	
+	if (conta == 0) {
+	    return 1;
+	}
+	else {
+	    return 0;
+	}
+}
+
+
+int main() {
+	
+	string griglia[M][N];
+	
+	GrigliaVuota(griglia);
+	cout << "Griglia di partenza:" << endl;
+	StampaM(griglia);
+	cout << endl;
+	
+	int r1;
+	int r2;
+	int c1;
+	int c2;
+	int d1;
+	int d2;
+	int controllo;
+	
+	do {
+		riempiInput1(griglia);
+		cout << endl;
+		StampaM(griglia);
+		r1 = ControllaRighe1(griglia);
+		c1 = ControllaColonne1(griglia);
+		d1 = ControllaDiagonali1(griglia);
+		cout << endl;
+		controllo = ControllaGriglia(griglia);
+		if (r1 != 0 || c1 != 0 || d1 != 0 || controllo != 0) {
+		    break;
+		}
+		else {
+		riempiInput2(griglia);
+		StampaM(griglia);
+		r2 = ControllaRighe2(griglia);
+		c2 = ControllaColonne2(griglia);
+		d2 = ControllaDiagonali2(griglia);
+		cout << endl;
+		}
+	} while (r1 == 0 && c1 == 0 && d1 == 0 && r2 == 0 && c2 == 0 && d2 == 0 && controllo == 0);
+	
+	StampaRis(r1, c1, d1, r2, c2, d2);
+	
+	return 0;
+}
