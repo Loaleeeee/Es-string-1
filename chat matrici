@@ -1,0 +1,85 @@
+In C++ una matrice è semplicemente un array bidimensionale, cioè una “tabella” fatta di righe e colonne.
+
+Esempio visivo:
+
+1 2 3
+4 5 6
+7 8 9
+
+Questa è una matrice 3×3 (3 righe, 3 colonne).
+
+🔹 Dichiarazione
+
+In C++ si dichiara così:
+
+int matrice[3][3];
+
+👉 significa:
+
+3 righe
+3 colonne
+🔹 Inizializzazione
+
+Puoi inserirci valori direttamente:
+
+int matrice[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+🔹 Accesso agli elementi
+
+Si usa la notazione:
+
+matrice[riga][colonna]
+
+Esempio:
+
+cout << matrice[1][2];
+
+👉 stampa 6 (seconda riga, terza colonna — si parte da 0!)
+
+🔹 Scorrere una matrice (cicli)
+
+Di solito si usano due cicli for:
+
+for(int i = 0; i < 3; i++) {
+    for(int j = 0; j < 3; j++) {
+        cout << matrice[i][j] << " ";
+    }
+    cout << endl;
+}
+🔹 Inserimento da input
+for(int i = 0; i < 3; i++) {
+    for(int j = 0; j < 3; j++) {
+        cin >> matrice[i][j];
+    }
+}
+🔹 Esempio completo
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m[2][2];
+
+    // input
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 2; j++) {
+            cin >> m[i][j];
+        }
+    }
+
+    // output
+    for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < 2; j++) {
+            cout << m[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
+🔥 Concetti importanti
+Gli indici partono da 0
+Devi sempre sapere dimensione (righe e colonne)
+Una matrice è un array dentro un array
